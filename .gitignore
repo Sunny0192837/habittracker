@@ -1,3 +1,6 @@
 .venv
 .idea
 .env
+htmlcov
+.coverage
+.flake8
