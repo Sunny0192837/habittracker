@@ -7,6 +7,4 @@ from users.models import User
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("id", "email")
     list_filter = ("email",)
-    search_fields = (
-        "email",
-    )
+    search_fields = ("email",)
