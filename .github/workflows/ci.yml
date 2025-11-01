@@ -3,7 +3,7 @@ name: Django test and deploy
 on: [push,pull_request]
 
 jobs:
-  lint and test:
+  lint-and-test:
     runs-on: ubuntu-latest
 
     services:
