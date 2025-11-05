@@ -103,7 +103,7 @@ class HabitTestCase(APITestCase):
         self.assertFalse(Habit.objects.filter(pk=self.habit.pk).exists())
 
     def test_linked_habit_with_reward(self):
-        """ Исключить одновременный выбор связанной привычки и указания вознаграждения. """
+        """Исключить одновременный выбор связанной привычки и указания вознаграждения."""
         pleasant_habit = Habit.objects.create(
             owner=self.user,
             place="Дома",
@@ -113,7 +113,7 @@ class HabitTestCase(APITestCase):
             is_public=True,
             is_good=False,
             frequency=1,
-            continuation_time=10
+            continuation_time=10,
         )
 
         url = reverse_lazy("habits:habit_create")
@@ -132,10 +132,13 @@ class HabitTestCase(APITestCase):
 
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("Привычка не может иметь связанную привычку и вознаграждение", str(response.json()))
+        self.assertIn(
+            "Привычка не может иметь связанную привычку и вознаграждение",
+            str(response.json()),
+        )
 
     def test_continuation_time(self):
-        """ Время выполнения. """
+        """Время выполнения."""
         url = reverse_lazy("habits:habit_create")
         data = {
             "place": "Дома",
@@ -151,7 +154,9 @@ class HabitTestCase(APITestCase):
 
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("Время выполнения не может превышать 120 секунд", str(response.json()))
+        self.assertIn(
+            "Время выполнения не может превышать 120 секунд", str(response.json())
+        )
 
     def test_pleasant_habit_with_reward(self):
         """У приятной привычки не может быть вознаграждения или связанной привычки."""
@@ -170,10 +175,12 @@ class HabitTestCase(APITestCase):
 
         response = self.client.post(url, data_with_reward)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("Приятная привычка не может иметь вознаграждение.", str(response.json()))
+        self.assertIn(
+            "Приятная привычка не может иметь вознаграждение.", str(response.json())
+        )
 
     def test_frequency_min(self):
-        """ Нельзя выполнять привычку реже, чем 1 раз в 7 дней. """
+        """Нельзя выполнять привычку реже, чем 1 раз в 7 дней."""
         url = reverse_lazy("habits:habit_create")
         data = {
             "place": "Дома",
@@ -188,10 +195,12 @@ class HabitTestCase(APITestCase):
 
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("Нельзя выполнять привычку реже, чем 1 раз в 7 дней", str(response.json()))
+        self.assertIn(
+            "Нельзя выполнять привычку реже, чем 1 раз в 7 дней", str(response.json())
+        )
 
     def test_frequency_max(self):
-        """ Нельзя не выполнять привычку более 7 дней. """
+        """Нельзя не выполнять привычку более 7 дней."""
         url = reverse_lazy("habits:habit_create")
         data = {
             "place": "Дома",
