@@ -37,9 +37,7 @@ class Habit(models.Model):
         limit_choices_to={"is_pleasant": True},
     )
     is_good = models.BooleanField(verbose_name="признак полезной привычки")
-    frequency = models.PositiveIntegerField(
-        verbose_name="периодичность в днях"
-    )
+    frequency = models.PositiveIntegerField(verbose_name="периодичность в днях")
     reward = models.CharField(
         verbose_name="вознаграждение",
         max_length=255,
@@ -90,9 +88,7 @@ class Habit(models.Model):
             raise ValidationError("Связанная привычка должна быть приятной")
 
         if not self.is_good and not self.is_pleasant:
-            raise ValidationError(
-                "Привычка должна быть либо полезной, либо приятной"
-            )
+            raise ValidationError("Привычка должна быть либо полезной, либо приятной")
 
     def calculate_next_reminder(self):
         """

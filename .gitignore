@@ -3,9 +3,9 @@
 .env
 htmlcov
 .coverage
-.flake8
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Pythoncommit
+static

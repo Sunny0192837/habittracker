@@ -24,8 +24,7 @@ class HabitSerializer(ModelSerializer):
             reward = data.get("reward", self.instance.reward)
             frequency = data.get("frequency", self.instance.frequency)
             continuation_time = data.get(
-                "continuation_time",
-                self.instance.continuation_time
+                "continuation_time", self.instance.continuation_time
             )
         else:
             is_pleasant = data.get("is_pleasant")
@@ -42,9 +41,7 @@ class HabitSerializer(ModelSerializer):
 
         if frequency is not None:
             if frequency < 1:
-                raise serializers.ValidationError(
-                    "Частота не может быть меньше 1 дня"
-                )
+                raise serializers.ValidationError("Частота не может быть меньше 1 дня")
             if frequency > 7:
                 raise serializers.ValidationError(
                     "Нельзя выполнять привычку реже, чем 1 раз в 7 дней"
